@@ -19,7 +19,7 @@ const displayPhones = phones => {
 
     // 7th step 
     // display 20 phones 
-    phones = phones.slice(0, 20);
+    phones = phones.slice(0, 10);
 
     // 8th step 
     // display no phones found 
@@ -50,11 +50,23 @@ const displayPhones = phones => {
 
         phonesContainer.appendChild(phoneDiv);
     });
+    // stop loader 
+    // step-10th 
+    toggleSpinner(false);
 
 }
 
+
+
+
+// handel search bar click 
 // 3rd step 
 document.getElementById('btn-search').addEventListener('click', function () {
+    // start loader
+    // step-9th
+    toggleSpinner(true);
+
+
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
 
@@ -66,4 +78,16 @@ document.getElementById('btn-search').addEventListener('click', function () {
 
     searchField.value = "";
 })
-loadPhone();
+
+// loading hole spinner k dekhabo
+// loading na hole dekhabo na 
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader');
+    if (isLoading) {
+        loaderSection.classList.remove('d-none')
+    }
+    else {
+        loaderSection.classList.add('d-none')
+    }
+}
+// loadPhone();
