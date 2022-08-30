@@ -1,16 +1,25 @@
 // 1st step 
-const loadPhone = async (searchText) => {
+const loadPhone = async (searchText, dataLimit) => {
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
 
     const res = await fetch(url);
     const data = await res.json();
-    displayPhones(data.data);
+
+    // 16th step 
+    // add dataLimit parameter 
+    // displayPhones(data.data);
+
+
+    displayPhones(data.data, dataLimit);
+
+
 
 
 }
 
 // 2nd step 
-const displayPhones = phones => {
+// after 16th step add here also dataLimit paramiter
+const displayPhones = (phones, dataLimit) => {
     // console.log(phone)
     const phonesContainer = document.getElementById('phones-container');
 
@@ -23,7 +32,9 @@ const displayPhones = phones => {
 
     const showAll = document.getElementById('show-all');
 
-    if (phones.length > 10) {
+    // after 16th step add here also dataLimit 
+
+    if (dataLimit && phones.length > 10) {
         // 7th step
         phones = phones.slice(0, 10);
 
@@ -71,6 +82,16 @@ const displayPhones = phones => {
 
 }
 
+// 13th step
+// common function for full 3rd,4th,9th step 
+const processSearch = (dataLimit) => {
+    toggleSpinner(true);
+
+    const searchField = document.getElementById('search-field');
+    const searchText = searchField.value;
+
+    loadPhone(searchText, dataLimit);
+}
 
 
 
@@ -79,15 +100,19 @@ const displayPhones = phones => {
 document.getElementById('btn-search').addEventListener('click', function () {
     // start loader
     // step-9th
-    toggleSpinner(true);
+    // toggleSpinner(true);
 
 
-    const searchField = document.getElementById('search-field');
-    const searchText = searchField.value;
+    // const searchField = document.getElementById('search-field');
+    // const searchText = searchField.value;
 
     // 4th step 
 
-    loadPhone(searchText);
+    // loadPhone(searchText);
+
+    // 14th step
+    // call 13th step function
+    processSearch(10);
 
     // 6th step 
 
@@ -105,4 +130,45 @@ const toggleSpinner = isLoading => {
         loaderSection.classList.add('d-none')
     }
 }
+
+// 12th step 
+// click show all button to load all phone 
+document.getElementById('btn-show-all').addEventListener('click', function () {
+
+
+    // 15th step 
+    // no limit parameter 
+    processSearch();
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // loadPhone();
