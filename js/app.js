@@ -70,6 +70,7 @@ const displayPhones = (phones, dataLimit) => {
                 <h5 class="card-title">${phone.phone_name}</h5>
                 <p class="card-text">This is a longer card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit longer.</p>
+                <button onclick="loadPhoneDetails('${phone.slug}')" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show details</button>
             </div>
         </div>
         `;
@@ -82,6 +83,8 @@ const displayPhones = (phones, dataLimit) => {
 
 }
 
+
+
 // 13th step
 // common function for full 3rd,4th,9th step 
 const processSearch = (dataLimit) => {
@@ -91,6 +94,8 @@ const processSearch = (dataLimit) => {
     const searchText = searchField.value;
 
     loadPhone(searchText, dataLimit);
+
+    searchField.value = "";
 }
 
 
@@ -116,8 +121,22 @@ document.getElementById('btn-search').addEventListener('click', function () {
 
     // 6th step 
 
-    searchField.value = "";
+    // searchField.value = "";
 })
+
+
+
+
+// search input field enter enent handler 
+document.getElementById('search-field').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        // code for enter
+        processSearch(10);
+    }
+});
+
+
+
 
 // loading hole spinner k dekhabo
 // loading na hole dekhabo na 
@@ -145,6 +164,33 @@ document.getElementById('btn-show-all').addEventListener('click', function () {
 
 
 
+// 17th step 
+// add details button on inner html and add function for load data 
+
+const loadPhoneDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayPhoneDetails(data.data);
+}
+
+
+// 18th step 
+// add to modal phone details 
+
+const displayPhoneDetails = phone => {
+    const modalTitle = document.getElementById('phoneDetailModalLabel')
+    modalTitle.innerText = phone.name;
+
+    const phoneDetails = document.getElementById('phone-details');
+    phoneDetails.innerHTML = `
+    <img class="h-50 mb-3" src="${phone.image}" class="card-img-top" alt="...">
+    <p>Release Date: ${phone.releaseDate ? phone.releaseDate : 'No Release Date Found'}</p>
+    <P>Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : 'No storage info'}</P>
+    <p>Others: Bluetooth: ${phone.others ? phone.others.Bluetooth : 'No Bluetooth'}</p>
+
+    `;
+}
 
 
 
@@ -162,13 +208,9 @@ document.getElementById('btn-show-all').addEventListener('click', function () {
 
 
 
+// inner HTML button er vitor function add korci + modal button add korci
 
 
 
 
-
-
-
-
-
-// loadPhone();
+// loadPhone(apple);
