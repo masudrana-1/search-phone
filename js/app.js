@@ -17,9 +17,24 @@ const displayPhones = phones => {
     // 5th step 
     phonesContainer.textContent = "";
 
-    // 7th step 
-    // display 20 phones 
-    phones = phones.slice(0, 10);
+    // 7th step and 11th
+    // display 10 phones 
+
+
+    const showAll = document.getElementById('show-all');
+
+    if (phones.length > 10) {
+        // 7th step
+        phones = phones.slice(0, 10);
+
+        // 11th step 
+        // add or remove show all button 
+        showAll.classList.remove('d-none');
+
+    }
+    else {
+        showAll.classList.add('show-all')
+    }
 
     // 8th step 
     // display no phones found 
