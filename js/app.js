@@ -196,18 +196,6 @@ const displayPhoneDetails = phone => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 // inner HTML button er vitor function add korci + modal button add korci
 
 
